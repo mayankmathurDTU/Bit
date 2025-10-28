@@ -1,0 +1,104 @@
+We need to perform two conversions:
+1. Convert a decimal integer (base 10) to base-N string
+2. Convert a base-N string back to decimal integer
+
+-----------------------------------------------------
+1️⃣ Integer → Base-N String
+-----------------------------------------------------
+Idea:
+- Divide the number repeatedly by the base.
+- Store the remainder each time — that remainder is one digit in the new base.
+- Continue with the quotient.
+- Reverse the digits at the end because they are collected in reverse order.
+
+----------------------------------------
+2️⃣ Base-N String → Integer
+-----------------------------------------------------
+Idea:
+- Start from left to right.
+- Multiply the current result by base and add the numeric value of the current digit.
+- Repeat for all digits. 
+
+-----------------------------------------------------
+⏱️ Time and Space Complexity
+-----------------------------------------------------
+intToBaseN:
+  Time  = O(log₍base₎(num))
+  Space = O(log₍base₎(num))
+
+baseNToInt:
+  Time  = O(log₍base₎(num))
+  Space = O(1)
+
+
+----------------------------------------------------------------------------------------------
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// Function: convert an integer number to base-N string
+string intToBaseN(int num, int base) {
+    // If number is 0, just return "0"
+    if (num == 0) return "0";
+
+    // Digits used in bases up to 36 (0-9 then A-Z)
+    string digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    string result = ""; // To store the converted number (in reverse)
+
+    // Keep dividing by base until num becomes 0
+    while (num > 0) {
+        int remainder = num % base;       // Get remainder (this is one digit)
+        result += digits[remainder];      // Add the corresponding digit
+        num /= base;                      // Divide number by base
+    }
+
+    // Reverse the result because the digits are collected backwards
+    reverse(result.begin(), result.end());
+
+    // Return the converted base-N string
+    return result;
+}
+
+// Function: convert base-N string back to an integer
+int baseNToInt(const string& s, int base) {
+    // Digits reference (same as before)
+    string digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    int result = 0; // Will store the final decimal number
+
+    // Process each character in the string
+    for (int i = 0; i < s.size(); i++) {
+        char c = toupper(s[i]);         // Convert to uppercase for consistency
+        int val = digits.find(c);       // Find numeric value of this character
+
+        // If digit is invalid for given base (like '8' in base 8)
+        if (val >= base || val == string::npos) {
+            cout << "Invalid digit '" << c << "' for base " << base << endl;
+            return 0; // Stop and return 0 for invalid input
+        }
+
+        // Multiply current result by base and add the new digit
+        result = result * base + val;
+    }
+
+    // Return the decimal integer value
+    return result;
+}
+
+// Example usage
+int main() {
+    int number = 255;  // Number to convert
+    int base = 16;     // Target base (can be 2, 8, 10, 16, 36, etc.)
+
+    // Convert integer to base-N string
+    string baseStr = intToBaseN(number, base);
+    cout << number << " in base " << base << " = " << baseStr << endl;
+
+    // Convert base-N string back to integer
+    int backToInt = baseNToInt(baseStr, base);
+    cout << baseStr << " back to decimal = " << backToInt << endl;
+
+    return 0; // End of program
+}
