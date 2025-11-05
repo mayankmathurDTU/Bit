@@ -1,0 +1,80 @@
+# 💡 Concept: Counting the number of set bits (1s) in a number’s binary representation.
+
+# Example: n = 13 → 1101 → has 3 set bits
+
+# ------------------------------------------
+# 🔹 Approach 1: Bitwise check (Right Shift)
+# Check each bit by ANDing with 1, then shift right.
+# Time complexity: O(log n)
+# ------------------------------------------
+
+# Concept:
+# n & 1 → checks if last bit is 1
+# n >> 1 → shifts right to check next bit
+
+# Example:
+# n = 13 -> 1101
+# Step1: 1101 & 0001 → 1 → count=1
+# Step2: 0110 & 0001 → 0 → count=1
+# Step3: 0011 & 0001 → 1 → count=2
+# Step4: 0001 & 0001 → 1 → count=3 ✅
+
+# C++:
+int countSetBits_1(int n) {
+    int count = 0;
+    while (n > 0) {
+        if (n & 1) count++;
+        n >>= 1;
+    }
+    return count;
+}
+
+# ------------------------------------------
+# 🔹 Approach 2: Brian Kernighan’s Algorithm
+# Keep removing the last set bit until n becomes 0.
+# Each operation removes one set bit.
+# Time complexity: O(k) where k = number of set bits
+# ------------------------------------------
+
+# Concept:
+# n = n & (n - 1) removes the last set bit.
+# Count how many times we can do that.
+
+# Example:
+# n = 13 -> 1101
+# n-1 = 12 -> 1100
+# n & (n-1) = 1100 → 1 bit removed (count=1)
+# 1100 & 1011 = 1000 → 1 bit removed (count=2)
+# 1000 & 0111 = 0000 → 1 bit removed (count=3) ✅
+
+# C++:
+int countSetBits_2(int n) {
+    int count = 0;
+    while (n > 0) {
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
+}
+
+# ------------------------------------------
+# 🔹 Approach 3: Using Built-in Function (C++)
+# Modern compilers provide __builtin_popcount for integers.
+# Fastest and simplest.
+# ------------------------------------------
+
+# C++:
+int countSetBits_3(int n) {
+    return __builtin_popcount(n);
+}
+
+# Example Outputs:
+# n = 13 → 3
+# n = 7  → 3
+# n = 1023 → 10
+
+# ------------------------------------------
+# 🧠 Summary:
+# Approach 1 → Simple, O(log n)
+# Approach 2 → Efficient, O(k)
+# Approach 3 → Best, uses CPU instruction
