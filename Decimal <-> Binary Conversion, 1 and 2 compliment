@@ -239,3 +239,35 @@ string twosComplement(string bin) {
 #   ~5   = -(5 + 1)   = -6
 #   ~(-5) = -(-5 + 1) = 4
 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+
+# 1️⃣ Computers represent all integers in binary using 2’s complement.
+#     → Positive numbers are stored as normal binary.
+#     → Negative numbers are stored as (invert bits + add 1).
+
+# 2️⃣ The most significant bit (MSB) indicates the sign:
+#     0 → Positive, 1 → Negative.
+
+# 3️⃣ 1’s Complement = Flip all bits.
+#     2’s Complement = Flip all bits + Add 1.
+#     Used to represent negatives because it allows easy arithmetic.
+
+# 4️⃣ Example (int32):
+#     +5 → 00000000 00000000 00000000 00000101
+#     -5 → 11111111 11111111 11111111 11111011  (2’s complement of +5)
+
+# 5️⃣ The NOT (~) operator flips all bits.
+#     ~x = -(x + 1)
+#     So, ~5 = -6  and  ~(-5) = 4.
+
+# ✅ In short:
+# Computers store signed integers using 2’s complement,
+# which makes addition, subtraction, and bitwise operations work seamlessly.
