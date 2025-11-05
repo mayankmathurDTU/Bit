@@ -1,0 +1,28 @@
+# 💡 Concept: A number is a power of 2 if it has only ONE bit set in its binary form.
+# For example:
+# 1 -> 0001
+# 2 -> 0010
+# 4 -> 0100
+# 8 -> 1000
+# 16 -> 0001 0000
+# All have only one ‘1’ bit set.
+
+# 🔍 Trick:
+# If a number n is a power of two, then n & (n-1) == 0.
+# Because (n-1) flips all bits after the single 1 in n, removing that bit when ANDed.
+
+# Example:
+# n = 8 -> 1000
+# n-1 = 7 -> 0111
+# n & (n-1) = 0000 ✅ → power of 2
+
+# n = 10 -> 1010
+# n-1 = 9  -> 1001
+# n & (n-1) = 1000 ❌ → not power of 2
+
+# 🧠 Also check n > 0, since for n = 0 the condition is true but 0 isn’t a power of 2.
+
+# ✅ C++ code:
+bool isPowerOfTwo(int n) {
+    return (n > 0) && ((n & (n - 1)) == 0);
+}
