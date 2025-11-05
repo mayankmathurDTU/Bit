@@ -1,0 +1,40 @@
+⚙️ Conceptual Explanation:
+# When we subtract 1 from a number:
+#   - All bits to the right of the rightmost 1 become 1.
+#   - The rightmost 1 itself becomes 0.
+
+# Example: n = 12 (1100)
+# n - 1 = 11 (1011)
+#
+# 1100
+# & 1011
+# -------
+# 1000   ← rightmost set bit removed!
+
+# Example 4 (bigger):
+# n = 156 -> 1001 1100
+# n-1 = 155 -> 1001 1011
+# n & (n-1) = 1001 1000 -> 152 ✅ last set bit removed
+
+# Example 5 (bigger):
+# n = 1024 -> 0100 0000 0000
+# n-1 = 1023 -> 0011 1111 1111
+# n & (n-1) = 0000 0000 0000 -> 0 ✅ all bits cleared (since n had only one set bit)
+
+# Example 6:
+# n = 999 -> 1111 1001 11
+# n-1 = 998 -> 1111 1001 10
+# n & (n-1) = 1111 1001 10 -> 998 ✅ removes the lowest set bit
+
+# Hence formula:
+# ✅ n & (n - 1) removes the last set bit
+
+# -------------------------------------
+# 🧠 Why it works:
+# Subtracting 1 flips all bits after the rightmost 1 (including that 1),
+# and ANDing it removes that 1, keeping higher bits unchanged.
+
+# C++ code:
+int removeLastSetBit(int n) {
+    return n & (n - 1);
+}
