@@ -129,4 +129,113 @@ string twosComplement(string bin) {
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
+
+# 🧠 How Compiler Stores Positive and Negative Numbers (int32)
+# ------------------------------------------------------------
+
+# A 32-bit integer uses 32 bits (4 bytes) to represent numbers.
+# The **most significant bit (MSB)** is the **sign bit**:
+#   0 → positive
+#   1 → negative
+
+# Example: +5
+# Binary (32-bit): 00000000 00000000 00000000 00000101
+# Sign bit = 0 → positive
+# Stored as-is.
+
+# Example: -5
+# Step 1️⃣: Write +5 in binary → 00000000 00000000 00000000 00000101
+# Step 2️⃣: Take 1’s complement (invert bits)
+#           → 11111111 11111111 11111111 11111010
+# Step 3️⃣: Add 1 → 11111111 11111111 11111111 11111011
+# ✅ This is -5 in 2’s complement form.
+
+# 👉 So compiler stores:
+#    Positive numbers → as normal binary
+#    Negative numbers → in 2’s complement format
+#
+# Range for int32:
+#    -2,147,483,648 to +2,147,483,647
+
 ----------------------------------------------------------------------------------
+
+# 🧠 How to Interpret: 11111111 11111111 11111111 11111011
+# ---------------------------------------------------------
+
+# Step 1️⃣: Check the sign bit (MSB)
+# 1 → negative number
+# So, this is a NEGATIVE number stored in 2’s complement form.
+
+# Step 2️⃣: Convert back to positive magnitude
+# To find its actual value:
+#   ➤ Invert all bits (1’s complement)
+#   ➤ Add 1
+
+# Binary: 11111111 11111111 11111111 11111011
+# 1’s complement → 00000000 00000000 00000000 00000100
+# Add 1 →           00000000 00000000 00000000 00000101
+
+# Step 3️⃣: Convert to decimal
+# 00000000 00000000 00000000 00000101 = 5
+
+# Step 4️⃣: Apply the sign
+# Since sign bit = 1 → it’s negative
+
+# ✅ Final Answer: -5
+
+# Summary:
+# 11111111 11111111 11111111 11111011 → represents -5 in 32-bit signed integer (2’s complement)
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+
+
+# 🧠 What Happens When We Take NOT (~) of 5 and -5
+# -------------------------------------------------
+# The NOT (~) operator flips every bit in the binary representation.
+
+# Let's use 32-bit integers for clarity.
+
+# -------------------------------------------------
+# 🔹 Step 1: Represent +5 in binary (int32)
+# 5 = 00000000 00000000 00000000 00000101
+
+# -------------------------------------------------
+# 🔹 Step 2: Apply bitwise NOT (~)
+# ~5 = 11111111 11111111 11111111 11111010
+
+# This looks like a negative number (MSB = 1)
+# To find its value:
+#   Take 1’s complement (invert bits) → 00000000 00000000 00000000 00000101
+#   Add 1 → 00000000 00000000 00000000 00000110 = 6
+# Apply negative sign → -6
+
+# ✅ So, ~5 = -6
+
+# -------------------------------------------------
+# 🔹 Step 3: Represent -5 in binary (2’s complement)
+# +5 = 00000000 00000000 00000000 00000101
+# Invert bits → 11111111 11111111 11111111 11111010
+# Add 1 → 11111111 11111111 11111111 11111011  (this is -5)
+
+# -------------------------------------------------
+# 🔹 Step 4: Apply NOT
+# ~(-5) = invert all bits
+# ~(-5) = 00000000 00000000 00000000 00000100 = +4
+
+# ✅ So, ~(-5) = 4
+
+# -------------------------------------------------
+# 🔹 Step 5: Summary
+# ~5   = -6
+# ~(-5) = 4
+
+# ⚙️ Why?
+# In 2’s complement:
+#   ~x = -(x + 1)
+# Hence:
+#   ~5   = -(5 + 1)   = -6
+#   ~(-5) = -(-5 + 1) = 4
+
