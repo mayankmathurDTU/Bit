@@ -1,0 +1,102 @@
+1️⃣ AND (&)
+#   - Bit is 1 only if BOTH bits are 1.
+# Example:
+#   A = 5 (0101)
+#   B = 3 (0011)
+#   A & B = 0001 (1)
+
+# ----------------------------------------------
+# 2️⃣ OR (|)
+#   - Bit is 1 if ANY one of the bits is 1.
+# Example:
+#   A = 5 (0101)
+#   B = 3 (0011)
+#   A | B = 0111 (7)
+
+# ----------------------------------------------
+# 3️⃣ XOR (^)
+#   - Bit is 1 if bits are DIFFERENT.
+# Example:
+#   A = 5 (0101)
+#   B = 3 (0011)
+#   A ^ B = 0110 (6)
+#
+# 👉 XOR is useful for: -> is both commutative and associative:
+#   - Swapping numbers without temp variable -> How? (a^b)^b = a^(b^b) = a^(0) = a
+#   - Checking parity (odd/even): "Parity" means checking whether the number of 1s in a binary number is odd or even.
+            -> Each time XOR sees a 1, it flips the result (0 → 1 or 1 → 0). Every 1 “toggles” the parity.
+                So: If there are even number of 1s, they flip back to 0 at the end → even parity.
+                    If there are odd number of 1s, you end with 1 → odd parity.   
+#   - Encryption logic : # XOR encryption works by flipping message bits using a secret key (A ^ B = C).  
+                          Applying XOR again with the same key restores the original data (C ^ B = A).  
+                          It’s fast, symmetric, and forms the basis of many simple encryption systems.  
+
+
+# ----------------------------------------------
+# 4️⃣ NOT (~)
+#   - Flips all bits (1 → 0, 0 → 1)
+# Example:
+#   A = 5 (0101)
+#   ~A = 1010  → In 8-bit signed integer, this is -6
+# Because:
+#   ~A = -(A + 1)
+
+# ----------------------------------------------
+# 5️⃣ Left Shift (<<)
+#   - Shifts bits to the LEFT, filling with 0s.
+#   - Multiplies the number by 2^n
+# Example:
+#   A = 5 (0101)
+#   A << 1 = 1010 (10)
+
+# ----------------------------------------------
+# 6️⃣ Right Shift (>>)
+#   - Shifts bits to the RIGHT.
+#   - Divides the number by 2^n (for positive numbers)
+# Example:
+#   A = 5 (0101)
+#   A >> 1 = 0010 (2)
+
+# ------------------ PSEUDO CODE ------------------
+# Let A = 5, B = 3
+# print(A & B)   // AND
+# print(A | B)   // OR
+# print(A ^ B)   // XOR
+# print(~A)      // NOT
+# print(A << 1)  // Left shift by 1
+# print(A >> 1)  // Right shift by 1
+
+# ------------------ C++ CODE ------------------
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int A = 5;  // 0101
+    int B = 3;  // 0011
+
+    cout << "A & B  = " << (A & B) << endl;   // AND  -> 0001 -> 1
+    cout << "A | B  = " << (A | B) << endl;   // OR   -> 0111 -> 7
+    cout << "A ^ B  = " << (A ^ B) << endl;   // XOR  -> 0110 -> 6
+    cout << "~A     = " << (~A) << endl;      // NOT  -> flips all bits (-6)
+    cout << "A << 1 = " << (A << 1) << endl;  // Left shift -> 1010 -> 10
+    cout << "A >> 1 = " << (A >> 1) << endl;  // Right shift -> 0010 -> 2
+
+    return 0;
+}
+
+# ------------------ OUTPUT ------------------
+# A & B  = 1
+# A | B  = 7
+# A ^ B  = 6
+# ~A     = -6
+# A << 1 = 10
+# A >> 1 = 2
+
+# ------------------ SUMMARY ------------------
+# &  → AND  → keeps 1s common in both
+# |  → OR   → keeps 1s present in either
+# ^  → XOR  → keeps 1s only if bits differ
+# ~  → NOT  → flips all bits (gives -(n+1))
+# << → LEFT SHIFT  → multiplies by 2^n
+# >> → RIGHT SHIFT → divides by 2^n
